@@ -1,16 +1,57 @@
-# React + Vite
+# 🌿 Paradise Nursery
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern React shopping app for browsing and purchasing houseplants. Browse plants grouped by category, add them to your cart, adjust quantities, and review your total before checkout — all in a beautifully designed, fully client-side SPA.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## ✨ Features
 
-## React Compiler
+- **Landing Page** — Full-page hero with company intro and animated CTA
+- **Product Listing** — Plants grouped by category with hover effects and add-to-cart
+- **Shopping Cart** — Live quantity controls, per-item subtotals, and order total
+- **Global Cart State** — React Context + `useReducer` keeps cart consistent across all pages
+- **Property-Based Tests** — 11 correctness properties verified with [fast-check](https://fast-check.dev), 100 iterations each
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠 Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+| Layer | Choice |
+|---|---|
+| Framework | React 19 + Vite 8 |
+| State | React Context + `useReducer` |
+| Styling | Vanilla CSS (Outfit font, CSS custom properties) |
+| Testing | Vitest + React Testing Library + fast-check |
+
+---
+
+## 📁 Project Structure
+
+```
+src/
+├── components/
+│   ├── LandingPage.jsx       # Entry hero page
+│   ├── Header.jsx            # Sticky header with live cart badge
+│   ├── ProductListingPage.jsx# Products grouped by category
+│   ├── CategorySection.jsx   # Section heading + plant grid
+│   ├── PlantCard.jsx         # Individual plant card
+│   ├── CartPage.jsx          # Cart view with totals
+│   ├── CartItemCard.jsx      # Cart item with +/− controls
+│   └── CheckoutButton.jsx    # Checkout trigger
+├── context/
+│   └── CartContext.jsx       # cartReducer + CartProvider + useCart
+├── data/
+│   └── plants.js             # Static plant catalogue (8 plants, 3 categories)
+└── __tests__/
+    ├── unit/                 # Component unit & integration tests
+    │   ├── App.test.jsx
+    │   ├── LandingPage.test.jsx
+    │   ├── Header.test.jsx
+    │   └── CartPage.test.jsx
+    └── property/             # fast-check property-based tests
+        ├── cartReducer.property.test.js   # Properties 5, 9, 10, 11
+        ├── cartDisplay.property.test.jsx  # Properties 1, 6, 7, 8
+        └── productListing.property.test.jsx # Properties 2, 3, 4
+```
+
+---
