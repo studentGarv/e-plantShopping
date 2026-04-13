@@ -10,7 +10,7 @@ export const plants = [
     description:
       'One of the hardest plants to kill. Thrives in low light and removes toxins from the air overnight.',
     thumbnail:
-      'https://images.unsplash.com/photo-1599598425947-5202edd56fdb?w=400&q=80',
+      'https://plus.unsplash.com/premium_photo-1673969608395-9281e5e4395f?ixlib=rb-4.1.0&w=400&q=80',
     category: 'Air Purifying',
   },
   {
@@ -20,7 +20,7 @@ export const plants = [
     description:
       'Elegant white blooms and deep-green foliage. Excels at removing household air pollutants.',
     thumbnail:
-      'https://images.unsplash.com/photo-1593482892290-f54927ae1bb6?w=400&q=80',
+      'https://plus.unsplash.com/premium_photo-1663961915598-e63b1cc7275b?ixlib=rb-4.1.0&w=400&q=80',
     category: 'Air Purifying',
   },
   {
@@ -30,7 +30,7 @@ export const plants = [
     description:
       'Fast-growing trailing vine that filters formaldehyde and CO₂. Perfect for beginners.',
     thumbnail:
-      'https://images.unsplash.com/photo-1622398925373-3f91b1e275f5?w=400&q=80',
+      'https://plus.unsplash.com/premium_photo-1673969608398-18921179fa7d?ixlib=rb-4.1.0&w=400&q=80',
     category: 'Air Purifying',
   },
 
@@ -42,7 +42,7 @@ export const plants = [
     description:
       'Calming floral fragrance. Proven to reduce anxiety and promote restful sleep.',
     thumbnail:
-      'https://images.unsplash.com/photo-1499002238440-d264edd596ec?w=400&q=80',
+      'https://plus.unsplash.com/premium_photo-1711598349661-55de9a0ab085?ixlib=rb-4.1.0&w=400&q=80',
     category: 'Aromatic',
   },
   {
@@ -52,7 +52,7 @@ export const plants = [
     description:
       'Intensely sweet night-blooming scent. A classic choice for patios and sunlit windowsills.',
     thumbnail:
-      'https://images.unsplash.com/photo-1587530032498-1f7ba8c43bb5?w=400&q=80',
+      'https://plus.unsplash.com/premium_photo-1775212180950-a8b51479cabf?ixlib=rb-4.1.0&w=400&q=80',
     category: 'Aromatic',
   },
   {
@@ -62,7 +62,7 @@ export const plants = [
     description:
       'Woody, pine-like aroma. Doubles as a culinary herb — snip a sprig straight into your cooking.',
     thumbnail:
-      'https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?w=400&q=80',
+      'https://plus.unsplash.com/premium_photo-1764112640891-1ac308ad955b?ixlib=rb-4.1.0&w=400&q=80',
     category: 'Aromatic',
   },
 
@@ -74,7 +74,7 @@ export const plants = [
     description:
       'Drought-tolerant and shade-loving. Glossy leaves add a sculptural statement to any room.',
     thumbnail:
-      'https://images.unsplash.com/photo-1611211234876-e53c57dd1c21?w=400&q=80',
+      'https://plus.unsplash.com/premium_photo-1675864662842-6efc0ef31f67?ixlib=rb-4.1.0&w=400&q=80',
     category: 'Low Maintenance',
   },
   {
@@ -84,7 +84,7 @@ export const plants = [
     description:
       'A curated trio of mini cacti. Water once a month and let the desert vibes flow.',
     thumbnail:
-      'https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?w=400&q=80',
+      'https://plus.unsplash.com/premium_photo-1673064926981-a7ebef0fbd27?ixlib=rb-4.1.0&w=400&q=80',
     category: 'Low Maintenance',
   },
 ];

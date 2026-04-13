@@ -284,8 +284,6 @@ a {
   gap: 3rem;
 }
 
-/* ── Category Section ────────────────────────────────────────────────────── */
-.category-section {}
 
 .category-heading {
   font-size: clamp(1.4rem, 2.5vw, 2rem);
