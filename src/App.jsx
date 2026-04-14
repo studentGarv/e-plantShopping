@@ -7,29 +7,66 @@ import LandingPage from './components/LandingPage';
 import ProductList from './components/ProductList';
 import CartPage from './components/CartPage';
 
+import AboutUs from './components/AboutUs';
+
 /**
  * Root application component.
- * Owns the `currentPage` state and renders the appropriate page.
+ * Owns the state and renders the appropriate page.
  * The entire tree is wrapped in <Provider store={store}> so cart state is global.
  */
 export default function App() {
-  const [currentPage, setCurrentPage] = useState('landing');
+  const [showProductList, setShowProductList] = useState(false);
+  const [showCart, setShowCart] = useState(false);
 
-  function navigate(page) {
-    setCurrentPage(page);
-  }
+  const handleGetStartedClick = () => {
+    setShowProductList(true);
+    setShowCart(false);
+  };
+
+  const navigate = (page) => {
+    if (page === 'landing') {
+      setShowProductList(false);
+      setShowCart(false);
+    } else if (page === 'products') {
+      setShowProductList(true);
+      setShowCart(false);
+    } else if (page === 'cart') {
+      setShowProductList(true);
+      setShowCart(true);
+    }
+  };
 
   return (
     <Provider store={store}>
-      {currentPage === 'landing' && (
-        <LandingPage onGetStarted={() => navigate('products')} />
-      )}
-      {currentPage === 'products' && (
-        <ProductList navigate={navigate} />
-      )}
-      {currentPage === 'cart' && (
-        <CartPage navigate={navigate} />
-      )}
+      <div className="app-container">
+        {!showProductList && (
+          <div className="landing-page" role="main">
+            <div className="landing-overlay" />
+            <div className="landing-content">
+              <h1 className="landing-title">Welcome to Paradise Nursery</h1>
+              <div className="divider"></div>
+              <p>Where Green Meets Serenity</p>
+              <AboutUs />
+              <button
+                id="get-started-btn"
+                className="btn btn-primary landing-cta get-started-button"
+                onClick={handleGetStartedClick}
+              >
+                Get Started
+              </button>
+            </div>
+          </div>
+        )}
+        
+        <div className={`product-list-container ${showProductList ? 'visible' : ''}`}>
+          {showProductList && !showCart && (
+            <ProductList navigate={navigate} />
+          )}
+          {showProductList && showCart && (
+            <CartPage navigate={navigate} />
+          )}
+        </div>
+      </div>
     </Provider>
   );
 }
