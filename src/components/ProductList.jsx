@@ -1,4 +1,4 @@
-// src/components/ProductListingPage.jsx
+// src/components/ProductList.jsx
 import Header from './Header';
 import CategorySection from './CategorySection';
 import { plants } from '../data/plants';
@@ -7,7 +7,7 @@ import { plants } from '../data/plants';
  * Product listing page — shows all plants grouped by category.
  * Requirements: 2.1, 2.2, 2.3, 2.4, 3.1, 3.2, 3.3
  */
-export default function ProductListingPage({ navigate }) {
+export default function ProductList({ navigate }) {
   // Group plants by category, preserving order of first appearance.
   const grouped = plants.reduce((acc, plant) => {
     if (!acc[plant.category]) acc[plant.category] = [];

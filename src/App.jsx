@@ -1,14 +1,16 @@
 // src/App.jsx
 import { useState } from 'react';
-import { CartProvider } from './context/CartContext';
+import './App.css';
+import { Provider } from 'react-redux';
+import { store } from './store';
 import LandingPage from './components/LandingPage';
-import ProductListingPage from './components/ProductListingPage';
+import ProductList from './components/ProductList';
 import CartPage from './components/CartPage';
 
 /**
  * Root application component.
  * Owns the `currentPage` state and renders the appropriate page.
- * The entire tree is wrapped in <CartProvider> so cart state is global.
+ * The entire tree is wrapped in <Provider store={store}> so cart state is global.
  */
 export default function App() {
   const [currentPage, setCurrentPage] = useState('landing');
@@ -18,16 +20,16 @@ export default function App() {
   }
 
   return (
-    <CartProvider>
+    <Provider store={store}>
       {currentPage === 'landing' && (
         <LandingPage onGetStarted={() => navigate('products')} />
       )}
       {currentPage === 'products' && (
-        <ProductListingPage navigate={navigate} />
+        <ProductList navigate={navigate} />
       )}
       {currentPage === 'cart' && (
         <CartPage navigate={navigate} />
       )}
-    </CartProvider>
+    </Provider>
   );
 }

@@ -5,9 +5,9 @@ import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import * as fc from 'fast-check';
 import React from 'react';
-import { CartProvider, CartContext, cartReducer } from '../../context/CartContext';
+
 import PlantCard from '../../components/PlantCard';
-import ProductListingPage from '../../components/ProductListingPage';
+import ProductList from '../../components/ProductList';
 import { plants } from '../../data/plants';
 
 // ── Arbitraries ──────────────────────────────────────────────────────────────
@@ -41,16 +41,20 @@ const cartStateArb = fc
 
 // ── Helper: render PlantCard with an injected cart state ─────────────────────
 
+import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
+import cartReducer from '../../CartSlice';
+
 function renderPlantCardWithCart(plant, cartState = { items: [] }) {
-  function Wrapper() {
-    const [, dispatch] = React.useReducer(cartReducer, { items: [] });
-    return (
-      <CartContext.Provider value={{ state: cartState, dispatch }}>
-        <PlantCard plant={plant} />
-      </CartContext.Provider>
-    );
-  }
-  return render(<Wrapper />);
+  const store = configureStore({
+    reducer: { cart: cartReducer },
+    preloadedState: { cart: cartState },
+  });
+  return render(
+    <Provider store={store}>
+      <PlantCard plant={plant} />
+    </Provider>
+  );
 }
 
 // ── Property 3: PlantCard displays all plant fields ──────────────────────────
@@ -104,10 +108,11 @@ describe('productListing property tests', () => {
   it('Property 2: Category sections match plant data', () => {
     const uniqueCategories = [...new Set(plants.map((p) => p.category))];
 
+    const store = configureStore({ reducer: { cart: cartReducer } });
     const { unmount } = render(
-      <CartProvider>
-        <ProductListingPage navigate={() => {}} />
-      </CartProvider>
+      <Provider store={store}>
+        <ProductList navigate={() => {}} />
+      </Provider>
     );
 
     const sections = document.querySelectorAll('.category-section');

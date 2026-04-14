@@ -3,14 +3,17 @@
 
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { CartProvider } from '../../context/CartContext';
+import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
+import cartReducer from '../../CartSlice';
 import CartPage from '../../components/CartPage';
 
 function renderCartPage(props = {}) {
+  const store = configureStore({ reducer: { cart: cartReducer } });
   return render(
-    <CartProvider>
+    <Provider store={store}>
       <CartPage navigate={props.navigate ?? (() => {})} />
-    </CartProvider>
+    </Provider>
   );
 }
 

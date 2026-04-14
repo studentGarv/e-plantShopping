@@ -5,10 +5,10 @@ import { describe, it, expect } from 'vitest';
 import { render } from '@testing-library/react';
 import * as fc from 'fast-check';
 import React from 'react';
-import { CartContext, cartReducer } from '../../context/CartContext';
+
 import Header from '../../components/Header';
 import CartPage from '../../components/CartPage';
-import CartItemCard from '../../components/CartItemCard';
+import CartItem from '../../components/CartItem';
 
 // ── Arbitraries ──────────────────────────────────────────────────────────────
 
@@ -43,16 +43,20 @@ const nonEmptyCartStateArb = cartStateArb.filter((s) => s.items.length > 0);
 
 // ── Helper: render a component with an injected CartContext state ─────────────
 
+import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
+import cartReducer from '../../CartSlice';
+
 function renderWithCartState(Component, cartState, extraProps = {}) {
-  function Wrapper() {
-    const [, dispatch] = React.useReducer(cartReducer, { items: [] });
-    return (
-      <CartContext.Provider value={{ state: cartState, dispatch }}>
-        <Component navigate={() => {}} {...extraProps} />
-      </CartContext.Provider>
-    );
-  }
-  return render(<Wrapper />);
+  const store = configureStore({
+    reducer: { cart: cartReducer },
+    preloadedState: { cart: cartState },
+  });
+  return render(
+    <Provider store={store}>
+      <Component navigate={() => {}} {...extraProps} />
+    </Provider>
+  );
 }
 
 // ── Property 1: Cart icon count reflects total items ─────────────────────────
@@ -81,8 +85,8 @@ describe('cartDisplay property tests', () => {
     );
   });
 
-  // Feature: paradise-nursery-shopping-app, Property 6: CartItemCard count matches cart items
-  it('Property 6: CartItemCard count matches cart items', () => {
+  // Feature: paradise-nursery-shopping-app, Property 6: CartItem count matches cart items
+  it('Property 6: CartItem count matches cart items', () => {
     fc.assert(
       fc.property(cartStateArb, (cartState) => {
         const { unmount } = renderWithCartState(CartPage, cartState);
@@ -94,20 +98,19 @@ describe('cartDisplay property tests', () => {
     );
   });
 
-  // Feature: paradise-nursery-shopping-app, Property 7: CartItemCard displays correct fields and controls
-  it('Property 7: CartItemCard displays correct fields and controls', () => {
+  // Feature: paradise-nursery-shopping-app, Property 7: CartItem displays correct fields and controls
+  it('Property 7: CartItem displays correct fields and controls', () => {
     fc.assert(
       fc.property(cartItemArb, (item) => {
-        function Wrapper() {
-          const [, dispatch] = React.useReducer(cartReducer, { items: [] });
-          return (
-            <CartContext.Provider value={{ state: { items: [item] }, dispatch }}>
-              <CartItemCard item={item} />
-            </CartContext.Provider>
-          );
-        }
-
-        const { unmount } = render(<Wrapper />);
+        const store = configureStore({
+          reducer: { cart: cartReducer },
+          preloadedState: { cart: { items: [item] } },
+        });
+        const { unmount } = render(
+          <Provider store={store}>
+            <CartItem item={item} />
+          </Provider>
+        );
         const card = document.querySelector('.cart-item-card');
         expect(card).not.toBeNull();
         // Name is displayed

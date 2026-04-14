@@ -1,16 +1,18 @@
 // src/components/PlantCard.jsx
-import { useCart } from '../context/CartContext';
+import { useSelector, useDispatch } from 'react-redux';
+import { addItem } from '../CartSlice';
 
 /**
  * Individual plant card for the product listing page.
  * Requirements: 3.4, 4.1, 4.2, 4.3, 4.4
  */
 export default function PlantCard({ plant }) {
-  const { state, dispatch } = useCart();
-  const inCart = state.items.some((i) => i.plant.id === plant.id);
+  const dispatch = useDispatch();
+  const items = useSelector((state) => state.cart.items);
+  const inCart = items.some((i) => i.plant.id === plant.id);
 
   function handleAddToCart() {
-    dispatch({ type: 'ADD_ITEM', plant });
+    dispatch(addItem(plant));
   }
 
   return (

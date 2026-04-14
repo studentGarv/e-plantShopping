@@ -1,12 +1,13 @@
-// src/components/CartItemCard.jsx
-import { useCart } from '../context/CartContext';
+// src/components/CartItem.jsx
+import { useDispatch } from 'react-redux';
+import { removeItem, updateQuantity } from '../CartSlice';
 
 /**
  * Card showing a single cart item with quantity controls and delete.
  * Requirements: 5.2, 5.3, 6.1, 6.2, 6.3, 6.4, 7.1, 7.2, 8.1
  */
-export default function CartItemCard({ item }) {
-  const { dispatch } = useCart();
+export default function CartItem({ item }) {
+  const dispatch = useDispatch();
   const { plant, quantity } = item;
   const subtotal = (plant.price * quantity).toFixed(2);
 
@@ -27,7 +28,7 @@ export default function CartItemCard({ item }) {
         <button
           id={`decrement-${plant.id}`}
           className="qty-btn"
-          onClick={() => dispatch({ type: 'DECREMENT', plantId: plant.id })}
+          onClick={() => dispatch(updateQuantity({ id: plant.id, quantity: quantity - 1 }))}
           aria-label={`Decrease quantity of ${plant.name}`}
         >
           −
@@ -36,7 +37,7 @@ export default function CartItemCard({ item }) {
         <button
           id={`increment-${plant.id}`}
           className="qty-btn"
-          onClick={() => dispatch({ type: 'INCREMENT', plantId: plant.id })}
+          onClick={() => dispatch(updateQuantity({ id: plant.id, quantity: quantity + 1 }))}
           aria-label={`Increase quantity of ${plant.name}`}
         >
           +
@@ -44,7 +45,7 @@ export default function CartItemCard({ item }) {
         <button
           id={`remove-${plant.id}`}
           className="delete-btn"
-          onClick={() => dispatch({ type: 'REMOVE_ITEM', plantId: plant.id })}
+          onClick={() => dispatch(removeItem(plant.id))}
           aria-label={`Remove ${plant.name} from cart`}
         >
           🗑

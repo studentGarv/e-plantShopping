@@ -1,16 +1,15 @@
 // src/components/CartPage.jsx
 import Header from './Header';
-import CartItemCard from './CartItemCard';
+import CartItem from './CartItem';
 import CheckoutButton from './CheckoutButton';
-import { useCart } from '../context/CartContext';
+import { useSelector } from 'react-redux';
 
 /**
  * Cart page — shows all items in cart with totals and checkout.
  * Requirements: 5.1, 5.4, 5.5, 5.6, 6.5, 6.6, 7.3, 7.4
  */
 export default function CartPage({ navigate }) {
-  const { state } = useCart();
-  const { items } = state;
+  const items = useSelector((state) => state.cart.items);
 
   const totalItems = items.reduce((sum, i) => sum + i.quantity, 0);
   const totalCost = items.reduce((sum, i) => sum + i.plant.price * i.quantity, 0);
@@ -37,7 +36,7 @@ export default function CartPage({ navigate }) {
         ) : (
           <div className="cart-items">
             {items.map((item) => (
-              <CartItemCard key={item.plant.id} item={item} />
+              <CartItem key={item.plant.id} item={item} />
             ))}
           </div>
         )}

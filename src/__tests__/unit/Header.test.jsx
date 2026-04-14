@@ -4,14 +4,17 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { CartProvider } from '../../context/CartContext';
+import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
+import cartReducer from '../../CartSlice';
 import Header from '../../components/Header';
 
 function renderHeader(props = {}) {
+  const store = configureStore({ reducer: { cart: cartReducer } });
   return render(
-    <CartProvider>
+    <Provider store={store}>
       <Header onLogoClick={props.onLogoClick ?? (() => {})} onCartClick={props.onCartClick ?? (() => {})} />
-    </CartProvider>
+    </Provider>
   );
 }
 

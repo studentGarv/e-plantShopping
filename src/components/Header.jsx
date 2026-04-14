@@ -1,13 +1,13 @@
 // src/components/Header.jsx
-import { useCart } from '../context/CartContext';
+import { useSelector } from 'react-redux';
 
 /**
  * Shared header for ProductListingPage and CartPage.
  * Requirements: 2.1, 2.2, 2.3, 2.4
  */
 export default function Header({ onLogoClick, onCartClick }) {
-  const { state } = useCart();
-  const totalItems = state.items.reduce((sum, i) => sum + i.quantity, 0);
+  const items = useSelector(state => state.cart.items);
+  const totalItems = items.reduce((sum, i) => sum + i.quantity, 0);
 
   return (
     <header className="header">
