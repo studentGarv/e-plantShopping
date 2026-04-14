@@ -8,6 +8,7 @@ import ProductList from './components/ProductList';
 import CartPage from './components/CartPage';
 
 import AboutUs from './components/AboutUs';
+import CartItem from './components/CartItem'; // updated to use CartItem directly
 
 /**
  * Root application component.
@@ -63,7 +64,7 @@ export default function App() {
             <ProductList navigate={navigate} />
           )}
           {showProductList && showCart && (
-            <CartPage navigate={navigate} />
+            <CartItem onContinueShopping={() => navigate('products')} />
           )}
         </div>
       </div>
